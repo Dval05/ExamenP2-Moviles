@@ -2,7 +2,7 @@ import '../entities/poliza.dart';
 import '../entities/agente.dart';
 
 abstract class PolizaRepository {
-  Future<List<Poliza>> getPolizas();
+  Future<List<Poliza>> getPolizas({String? query});
   Future<Poliza> getPoliza(int id);
   Future<Poliza> createPoliza(Poliza poliza);
   Future<Poliza> updatePoliza(int id, Poliza poliza);
@@ -15,8 +15,8 @@ class CrudPolizasUsecase {
 
   CrudPolizasUsecase({required this.repository});
 
-  Future<List<Poliza>> getPolizas() {
-    return repository.getPolizas();
+  Future<List<Poliza>> getPolizas({String? query}) {
+    return repository.getPolizas(query: query);
   }
 
   Future<Poliza> getPoliza(int id) {

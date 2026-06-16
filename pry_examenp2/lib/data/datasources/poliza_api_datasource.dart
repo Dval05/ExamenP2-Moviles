@@ -9,8 +9,11 @@ class PolizaApiDatasource {
   // - Flutter Web o Simulador iOS: 'http://localhost:8000' o 'http://127.0.0.1:8000'
   final String baseUrl = 'http://172.20.232.88:8000';
 
-  Future<List<Poliza>> getPolizas() async {
-    final response = await http.get(Uri.parse('$baseUrl/polizas'));
+  Future<List<Poliza>> getPolizas({String? query}) async {
+    final url = query != null && query.isNotEmpty
+        ? '$baseUrl/polizas?cliente=$query'
+        : '$baseUrl/polizas';
+    final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       final List data = json.decode(utf8.decode(response.bodyBytes));
       return data.map((e) => Poliza.fromJson(e)).toList();

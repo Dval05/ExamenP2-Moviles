@@ -9,8 +9,8 @@ class PolizaRepositoryImpl implements PolizaRepository {
   PolizaRepositoryImpl({required this.apiDatasource});
 
   @override
-  Future<List<Poliza>> getPolizas() {
-    return apiDatasource.getPolizas();
+  Future<List<Poliza>> getPolizas({String? query}) {
+    return apiDatasource.getPolizas(query: query);
   }
 
   @override

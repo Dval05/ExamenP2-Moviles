@@ -42,11 +42,18 @@ class PolizaViewModel extends ChangeNotifier {
     }
   }
 
+  String searchQuery = "";
+
+  void searchPolizas(String query) {
+    searchQuery = query;
+    loadPolizas();
+  }
+
   Future<void> loadPolizas() async {
     loading = true;
     notifyListeners();
     try {
-      polizas = await usecase.getPolizas();
+      polizas = await usecase.getPolizas(query: searchQuery);
       errorMessage = null;
     } catch (e) {
       errorMessage = "Error al cargar pólizas";
