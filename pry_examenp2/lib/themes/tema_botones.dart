@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'esquema_color.dart';
 
-// Tema de botones - redondeados con color rosado pastel
 class ButtonThemeApp {
   static ElevatedButtonThemeData get elevatedButtonTheme {
     return ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        backgroundColor: ColorSchemeApp.primaryPink,
-        foregroundColor: ColorSchemeApp.softGray,
+        backgroundColor: ColorSchemeApp.darkPink,
+        foregroundColor: ColorSchemeApp.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(25),
         ),

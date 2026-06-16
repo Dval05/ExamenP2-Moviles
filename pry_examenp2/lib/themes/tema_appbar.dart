@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'esquema_color.dart';
 
-// Tema del AppBar - rosado pastel con texto oscuro
 class AppBarThemeApp {
   static AppBarTheme get appBarTheme {
     return const AppBarTheme(
