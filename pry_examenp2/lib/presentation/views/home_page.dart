@@ -23,8 +23,13 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() =>
-        Provider.of<PolizaViewModel>(context, listen: false).loadPolizas());
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        final vm = Provider.of<PolizaViewModel>(context, listen: false);
+        vm.loadPolizas();
+        vm.loadAgente();
+      }
+    });
   }
 
   @override

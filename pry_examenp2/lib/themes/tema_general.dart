@@ -33,8 +33,8 @@ class GeneralThemeApp {
         labelStyle: const TextStyle(color: ColorSchemeApp.softGray),
         prefixIconColor: ColorSchemeApp.darkPink,
       ),
-      cardTheme: CardTheme(
-        color: ColorSchemeApp.white,
+      cardTheme: CardThemeData(
+        color: ColorSchemeApp.creamBackground,
         elevation: 2,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       ),

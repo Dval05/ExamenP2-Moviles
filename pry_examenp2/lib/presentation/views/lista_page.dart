@@ -42,7 +42,7 @@ class ListaPage extends StatelessWidget {
                 ),
                 IconButton(
                   icon: const Icon(Icons.delete, color: Colors.red),
-                  onPressed: () => _mostrarDialogoEliminar(context, vm, p.codigo!),
+                  onPressed: () => _mostrarDialogoEliminar(context, vm, p.id!),
                 ),
               ],
             ),
@@ -52,7 +52,7 @@ class ListaPage extends StatelessWidget {
     );
   }
 
-  void _mostrarDialogoEliminar(BuildContext context, PolizaViewModel vm, String codigo) {
+  void _mostrarDialogoEliminar(BuildContext context, PolizaViewModel vm, int id) {
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
@@ -63,7 +63,7 @@ class ListaPage extends StatelessWidget {
           ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
             onPressed: () {
-              vm.deletePoliza(codigo);
+              vm.deletePoliza(id);
               Navigator.pop(context);
             },
             child: const Text("Eliminar"),

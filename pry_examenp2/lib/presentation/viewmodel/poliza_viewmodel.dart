@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import '../../domain/entities/poliza.dart';
+import '../../domain/entities/agente.dart';
+import '../../domain/usescase/crud_polizas_usecase.dart';
 
 class PolizaViewModel extends ChangeNotifier {
   final CrudPolizasUsecase usecase;
@@ -6,6 +9,7 @@ class PolizaViewModel extends ChangeNotifier {
   PolizaViewModel(this.usecase);
 
   List<Poliza> polizas = [];
+  Agente? agente;
   bool loading = false;
   String? errorMessage;
 
@@ -28,6 +32,16 @@ class PolizaViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> loadAgente() async {
+    try {
+      agente = await usecase.getAgente();
+      notifyListeners();
+    } catch (e) {
+      errorMessage = "Error al cargar agente";
+      notifyListeners();
+    }
+  }
+
   Future<void> loadPolizas() async {
     loading = true;
     notifyListeners();
@@ -45,8 +59,8 @@ class PolizaViewModel extends ChangeNotifier {
     loading = true;
     notifyListeners();
     try {
-      if (polizaEnEdicion != null && polizaEnEdicion!.codigo != null) {
-        await usecase.updatePoliza(polizaEnEdicion!.codigo!, poliza);
+      if (polizaEnEdicion != null && polizaEnEdicion!.id != null) {
+        await usecase.updatePoliza(polizaEnEdicion!.id!, poliza);
       } else {
         await usecase.createPoliza(poliza);
       }
@@ -60,11 +74,11 @@ class PolizaViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> deletePoliza(String codigo) async {
+  Future<void> deletePoliza(int id) async {
     loading = true;
     notifyListeners();
     try {
-      await usecase.deletePoliza(codigo);
+      await usecase.deletePoliza(id);
       await loadPolizas();
     } catch (e) {
       errorMessage = "Error al eliminar póliza";

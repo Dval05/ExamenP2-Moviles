@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../domain/entities/poliza.dart';
 import '../viewmodel/poliza_viewmodel.dart';
-import '../../themes/esquema_color.dart';
-
+import 'package:flutter/services.dart';
 class RegistroPage extends StatefulWidget {
   const RegistroPage({super.key});
 
@@ -64,11 +63,18 @@ class _RegistroPageState extends State<RegistroPage> {
             TextFormField(
               controller: _clienteController,
               decoration: const InputDecoration(labelText: "Nombre del Cliente", prefixIcon: Icon(Icons.person)),
-              validator: (v) => v!.isEmpty ? 'Requerido' : null,
+              inputFormatters: [
+                FilteringTextInputFormatter.allow(RegExp(r'[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]')),
+              ],
+              validator: (v) {
+                if (v == null || v.trim().isEmpty) return 'Requerido';
+                if (!RegExp(r'^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$').hasMatch(v)) return 'Solo ingrese letras';
+                return null;
+              },
             ),
             const SizedBox(height: 15),
             DropdownButtonFormField<String>(
-              value: _tipoSeguro,
+              initialValue: _tipoSeguro,
               decoration: const InputDecoration(labelText: "Tipo de Seguro", prefixIcon: Icon(Icons.security)),
               items: _tipos.map((t) => DropdownMenuItem(value: t, child: Text(t))).toList(),
               onChanged: (val) => setState(() => _tipoSeguro = val!),
@@ -76,9 +82,19 @@ class _RegistroPageState extends State<RegistroPage> {
             const SizedBox(height: 15),
             TextFormField(
               controller: _valorController,
-              keyboardType: TextInputType.number,
+              keyboardType: const TextInputType.numberWithOptions(decimal: true),
               decoration: const InputDecoration(labelText: "Valor Asegurado", prefixIcon: Icon(Icons.monetization_on)),
-              validator: (v) => v!.isEmpty ? 'Requerido' : null,
+              inputFormatters: [
+                FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
+              ],
+              validator: (v) {
+                if (v == null || v.trim().isEmpty) return 'Requerido';
+                final val = double.tryParse(v);
+                if (val == null) return 'Ingrese un número válido';
+                if (val > 1000000) return 'El límite máximo es \$1,000,000';
+                if (val <= 0) return 'Debe ser mayor a 0';
+                return null;
+              },
             ),
             const SizedBox(height: 25),
             ElevatedButton(
