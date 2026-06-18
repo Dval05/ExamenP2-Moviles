@@ -38,7 +38,7 @@ TIPOS_SEGURO_INFO = {
 
 AGENTE_PERFIL = {
     "id": 1,
-    "nombre": "Danna Valentina Espinoza",
+    "nombre": "Danna Valentina Andrade Lucio",
     "cedula": "1722651567",
     "email": "daandrade@aseguradora.com",
     "telefono": "+593 93 918 5134",

@@ -7,7 +7,7 @@ class PolizaApiDatasource {
   // Ajusta la URL según el dispositivo donde pruebas:
   // - Emulador Android: 'http://10.0.2.2:8000'
   // - Flutter Web o Simulador iOS: 'http://localhost:8000' o 'http://127.0.0.1:8000'
-  final String baseUrl = 'http://172.20.232.88:8000';
+  final String baseUrl = 'http://10.40.56.236:8000';
 
   Future<List<Poliza>> getPolizas({String? query}) async {
     final url = query != null && query.isNotEmpty
